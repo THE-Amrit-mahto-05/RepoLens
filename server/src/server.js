@@ -2,6 +2,10 @@ const fastify= require("fastify")({logger:true})
 const fs=require("fs-extra");
 const cloneRepo = require("./cloneRepo");
 
+fastify.register(require("@fastify/cors"),{
+    origin:"http://localhost:5173"
+})
+
 fastify.post("/api/analyze",async(request,reply)=>{
     const {repoUrl}=request.body
     if(!repoUrl){
@@ -29,8 +33,7 @@ const start=async()=>{
     try{
         await fastify.listen({port:3000});
         console.log("server running on http://localhost:3000")
-    }
-    catch(error){
+    }catch(error){
         fastify.log.error(error);
         process.exit(1);
 
