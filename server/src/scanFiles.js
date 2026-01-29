@@ -20,7 +20,6 @@ const EXT_LANG ={
   ".sh": "Shell",
   ".yml": "YAML",
   ".yaml": "YAML",
-  ".dockerfile": "Docker",
 }
 async function scanFiles(currentDir,rootDir=currentDir){
     const entries= await fs.readdir(currentDir,{withFileTypes:true})
