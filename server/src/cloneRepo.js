@@ -4,8 +4,11 @@ const path=require("path")
 
 const cloneRepo=async(repoUrl)=>{
     const repoName= repoUrl.split("/").pop().replace(".git","")
-    const repoPath= path.join(__dirname,"../repos",repoName)
+    
+    const reposBasePath = path.join(__dirname, "../repos");
+    const repoPath = path.join(reposBasePath, repoName);
 
+    await fs.ensureDir(reposBasePath);
     await fs.remove(repoPath);
 
     const git= simpleGit();

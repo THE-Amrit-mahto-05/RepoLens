@@ -1,28 +1,39 @@
-const fastify= require("fastify")();
+const fastify= require("fastify")({logger:true})
 const fs=require("fs-extra");
 const cloneRepo = require("./cloneRepo");
 
-fastify.post("/api/analyze",async(req,res)=>{
-    const repoUrl=req.body.repoUrl
+fastify.post("/api/analyze",async(request,reply)=>{
+    const {repoUrl}=request.body
     if(!repoUrl){
-        return res.code(400).send({error:"Repo Url is required"})
+        return reply.code(400).send({error:"Repo Url is required"})
     }
     try{
         const repo= await cloneRepo(repoUrl)
         const files= await fs.readdir(repo.path)
 
-        res.send({
+        return reply.send({
             repository:repo.name,
-            fileCount:fle.length,
+            fileCount:files.length,
             rootFiles:files
         })
     }catch(error){
-        res.code(400).send({error:error.message})
-
+        return reply.code(500).send({
+            error: "Failed to analyze repository",
+            message: error.message,
+        })
     }
 
 })
 
-fastify.listen({port:3000},()=>{
-    console.log("server running on http://localhost:3000")
-})
+const start=async()=>{
+    try{
+        await fastify.listen({port:3000});
+        console.log("server running on http://localhost:3000")
+    }
+    catch(error){
+        fastify.log.error(error);
+        process.exit(1);
+
+    }
+}
+start();
