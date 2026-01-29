@@ -54,7 +54,14 @@ export default function App(){
 
         {error && (<p className="text-red-600 mt-3">{error}</p>)}
         {result && (<pre className="bg-gray-100 mt-4 p-3 text-sm overflow-auto">
-        {JSON.stringify(result, null, 2)}
+        <ul>
+          {result.rootFiles.map((file,id)=>(
+            <li key={id}>
+            <span>{file.path}</span>
+            <span>-{file.type}</span>
+            </li>
+          ))}
+        </ul>
         </pre>)}
 
       </div>
