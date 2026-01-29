@@ -1,5 +1,6 @@
 const fs= require("fs-extra");
 const path= require("path");
+const IGNORED_DIRS = [".git","node_modules","dist","build"];
 
 const EXT_LANG ={
   ".js": "JavaScript",
@@ -28,6 +29,9 @@ async function scanFiles(currentDir,rootDir=currentDir){
     for (const entry of entries){
         const fullPath= path.join(currentDir,entry.name)
         if(entry.isDirectory()){
+            if(IGNORED_DIRS.includes(entry.name)){
+                continue
+            }
             const nestedFiles = await scanFiles(fullPath,rootDir)
             files.push(...nestedFiles)
         }else{
