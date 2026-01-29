@@ -1,6 +1,7 @@
 const fastify= require("fastify")({logger:true})
 const fs=require("fs-extra");
 const cloneRepo = require("./cloneRepo");
+const scanFiles = require("./scanFiles");
 
 fastify.register(require("@fastify/cors"),{
     origin:"http://localhost:5173"
@@ -13,7 +14,8 @@ fastify.post("/api/analyze",async(request,reply)=>{
     }
     try{
         const repo= await cloneRepo(repoUrl)
-        const files= await fs.readdir(repo.path)
+        const files= await scanFiles(repo.path)
+        
 
         return reply.send({
             repository:repo.name,
