@@ -60,7 +60,7 @@ const RiskItem = ({ risk, repoUrl }) => {
     setCodeError(null);
     try {
       const res = await fetch(
-        `http://localhost:3000/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(risk.file)}`
+        `https://repolens-4ns1.onrender.com/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(risk.file)}`
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to load file");
@@ -138,7 +138,7 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:3000/api/analyze", {
+      const response = await fetch("https://repolens-4ns1.onrender.com/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ repoUrl: url }),
