@@ -21,6 +21,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Search Bar */
 .google-search-bar {
     display: flex;
     align-items: center;
@@ -30,48 +31,126 @@ body {
     border-radius: 24px;
     padding: 0 20px;
     height: 48px;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, border-color 0.2s;
     width: 100%;
 }
 
 .google-search-bar:focus-within {
-    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+    box-shadow: 0 2px 8px rgba(32, 33, 36, .18);
     border-color: rgba(223, 225, 229, 0);
 }
 
+/* Buttons */
 .google-btn {
     background-color: #f8f9fa;
-    border: 1px solid #f8f9fa;
-    border-radius: 4px;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
     color: #3c4043;
-    font-family: Roboto, arial, sans-serif;
+    font-family: inherit;
     font-size: 14px;
-    padding: 8px 16px;
-    height: 36px;
+    font-weight: 500;
+    padding: 8px 18px;
+    height: 38px;
     cursor: pointer;
     user-select: none;
-    transition: all 0.2s;
+    transition: background-color 0.15s, box-shadow 0.15s, border-color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.google-btn:hover {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-    background-color: #f8f9fa;
-    border: 1px solid #dadce0;
+.google-btn:hover:not(:disabled) {
+    background-color: #f1f3f4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+    border-color: #c6c9cc;
     color: #202124;
 }
 
+.google-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.google-btn-primary {
+    background-color: var(--google-blue);
+    border-color: var(--google-blue);
+    color: #fff;
+}
+
+.google-btn-primary:hover:not(:disabled) {
+    background-color: #1765cc;
+    border-color: #1765cc;
+    box-shadow: 0 1px 3px rgba(26, 115, 232, .35);
+    color: #fff;
+}
+
+/* Cards */
 .card {
     background: white;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 20px;
     transition: box-shadow 0.2s;
 }
 
 .card:hover {
-    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
+    box-shadow: 0 2px 8px rgba(32, 33, 36, .18);
 }
 
+/* HTTP Method Badges */
+.method-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.method-get {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.method-post {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.method-put {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.method-patch {
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+.method-delete {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.method-other {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* Extension Badges */
+.ext-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    background: #f1f3f4;
+    color: #5f6368;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Tab active */
 .tab-active {
     color: var(--google-blue);
     border-bottom: 2px solid var(--google-blue);
@@ -79,7 +158,8 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -99,7 +179,7 @@ body {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
 
     to {
@@ -108,6 +188,22 @@ body {
     }
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .animate-fade-in {
-    animation: fadeIn 0.3s ease-out forwards;
+    animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.2s ease-out forwards;
 }
