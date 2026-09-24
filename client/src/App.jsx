@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import FileTree from "./components/FileTree";
 import ArchitectureDiagram from "./components/ArchitectureDiagram";
+import { API_BASE_URL } from "./config";
 
 // Helper: HTTP method badge class
 const methodBadgeClass = (method) => {
@@ -60,7 +61,7 @@ const RiskItem = ({ risk, repoUrl }) => {
     setCodeError(null);
     try {
       const res = await fetch(
-        `https://repolens-1.onrender.com/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(risk.file)}`
+        `${API_BASE_URL}/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(risk.file)}`
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to load file");
@@ -138,7 +139,7 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://repolens-1.onrender.com/api/analyze", {
+      const response = await fetch(`${API_BASE_URL}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ repoUrl: url }),

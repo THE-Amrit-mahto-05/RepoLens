@@ -11,7 +11,8 @@ const detectRisks = require("./riskDetector");
 const detectDependencies = require("./dependencyDetector");
 
 fastify.register(require("@fastify/cors"), {
-    origin: ["http://localhost:5173", "http://localhost:5174"]
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 });
 
 fastify.get("/", async (request, reply) => {

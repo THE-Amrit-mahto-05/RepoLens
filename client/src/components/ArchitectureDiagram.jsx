@@ -20,6 +20,7 @@ import {
   Info,
   X
 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -92,7 +93,7 @@ export default function ArchitectureDiagram({ entryPoints = [], importantFiles =
     setLoadingCode(true);
     setCode(null);
     try {
-      const res = await fetch(`https://repolens-1.onrender.com/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(filePath)}`);
+      const res = await fetch(`${API_BASE_URL}/api/file?repo=${encodeURIComponent(repoUrl)}&file=${encodeURIComponent(filePath)}`);
       const data = await res.json();
       setCode(data.content);
     } catch (err) {
